@@ -1,0 +1,71 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://titleScreen/buttons/button.tscn" type="PackedScene" id=1]
+[ext_resource path="res://titleScreen/click.ogg" type="AudioStream" id=2]
+[ext_resource path="res://titleScreen/titleScreen.gd" type="Script" id=4]
+[ext_resource path="res://titleScreen/settings/settings.tscn" type="PackedScene" id=5]
+[ext_resource path="res://game/tileset/underground/underground.png" type="Texture" id=6]
+[ext_resource path="res://titleScreen/discord/discord.tscn" type="PackedScene" id=9]
+
+[node name="titleScreen" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 4 )
+
+[node name="TextureRect" type="TextureRect" parent="."]
+modulate = Color( 0.376471, 0.376471, 0.376471, 1 )
+margin_left = -12.0
+margin_top = -55.0
+margin_right = 244.0
+margin_bottom = 201.0
+texture = ExtResource( 6 )
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+margin_right = 240.0
+margin_bottom = 135.0
+
+[node name="buttons" type="VBoxContainer" parent="CenterContainer"]
+margin_left = 56.0
+margin_top = 26.0
+margin_right = 184.0
+margin_bottom = 108.0
+custom_constants/separation = 5
+
+[node name="play" parent="CenterContainer/buttons" instance=ExtResource( 1 )]
+
+[node name="settings" parent="CenterContainer/buttons" instance=ExtResource( 1 )]
+margin_top = 29.0
+margin_bottom = 53.0
+
+[node name="Label" parent="CenterContainer/buttons/settings" index="0"]
+text = "SETTINGS"
+
+[node name="quit" parent="CenterContainer/buttons" instance=ExtResource( 1 )]
+margin_top = 58.0
+margin_bottom = 82.0
+
+[node name="Label" parent="CenterContainer/buttons/quit" index="0"]
+text = "QUIT"
+
+[node name="settings" parent="CenterContainer" instance=ExtResource( 5 )]
+visible = false
+margin_top = 13.0
+margin_bottom = 121.0
+
+[node name="audio" type="AudioStreamPlayer" parent="CenterContainer"]
+unique_name_in_owner = true
+bus = "sfx"
+
+[node name="discord" parent="." instance=ExtResource( 9 )]
+margin_left = 219.0
+margin_top = 121.0
+margin_right = -4.0
+margin_bottom = -3.0
+clickSound = ExtResource( 2 )
+
+[connection signal="pressed" from="CenterContainer/buttons/play" to="." method="play"]
+[connection signal="pressed" from="CenterContainer/buttons/settings" to="." method="settings"]
+[connection signal="pressed" from="CenterContainer/buttons/quit" to="." method="quit"]
+
+[editable path="CenterContainer/buttons/settings"]
+[editable path="CenterContainer/buttons/quit"]

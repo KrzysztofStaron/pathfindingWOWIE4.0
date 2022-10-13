@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://titleScreen/discord/discordHover.png" type="Texture" id=1]
+[ext_resource path="res://titleScreen/discord/discord.png" type="Texture" id=2]
+[ext_resource path="res://titleScreen/discord/discordPressed.png" type="Texture" id=3]
+[ext_resource path="res://titleScreen/discord/discord.gd" type="Script" id=4]
+
+[node name="discord" type="TextureButton"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -303.0
+margin_bottom = -169.0
+texture_normal = ExtResource( 2 )
+texture_pressed = ExtResource( 3 )
+texture_hover = ExtResource( 1 )
+script = ExtResource( 4 )
+
+[connection signal="pressed" from="." to="." method="_onClick"]

@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/impactMetal_medium_002.ogg-42faed20ca1156b80f80964c33b7431c.oggstr"
+
+[deps]
+
+source_file="res://game/door/sounds/impactMetal_medium_002.ogg"
+dest_files=[ "res://.import/impactMetal_medium_002.ogg-42faed20ca1156b80f80964c33b7431c.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

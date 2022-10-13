@@ -1,0 +1,227 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://player/player.gd" type="Script" id=1]
+[ext_resource path="res://player/textures/player.png" type="Texture" id=2]
+[ext_resource path="res://player/textures/playerWalk.png" type="Texture" id=3]
+[ext_resource path="res://player/textures/particle.png" type="Texture" id=4]
+[ext_resource path="res://crushed.wav" type="AudioStream" id=5]
+[ext_resource path="res://player/camera/cam.tscn" type="PackedScene" id=6]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 10, 4 )
+
+[sub_resource type="Gradient" id=62]
+offsets = PoolRealArray( 0, 0.158879, 0.841121, 1 )
+colors = PoolColorArray( 0, 0, 0, 0, 0.349609, 0.349609, 0.349609, 1, 1, 1, 1, 1, 1, 1, 1, 0 )
+
+[sub_resource type="RectangleShape2D" id=63]
+extents = Vector2( 2, 8 )
+
+[sub_resource type="RectangleShape2D" id=65]
+extents = Vector2( 8, 1.5 )
+
+[sub_resource type="RectangleShape2D" id=64]
+extents = Vector2( 8, 1.5 )
+
+[sub_resource type="Animation" id=2]
+resource_name = "idle"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 2 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 3 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Sprite:vframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 3 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Sprite:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0, 7 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Sprite/Particles2D:emitting")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "walk"
+length = 0.6
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 3 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 3 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Sprite:vframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 2 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Sprite:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0, 5 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Sprite/Particles2D:emitting")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[node name="player" type="KinematicBody2D"]
+position = Vector2( 77, 45 )
+z_index = 2
+collision_mask = 3
+script = ExtResource( 1 )
+speed = 100.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 2, 6 )
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 2 )
+hframes = 3
+vframes = 3
+
+[node name="Particles2D" type="CPUParticles2D" parent="Sprite"]
+position = Vector2( -6, 9 )
+emitting = false
+amount = 16
+lifetime = 0.4
+randomness = 0.3
+lifetime_randomness = 0.3
+local_coords = false
+texture = ExtResource( 4 )
+emission_shape = 1
+emission_sphere_radius = 2.0
+gravity = Vector2( -98, 0 )
+initial_velocity = 2.0
+initial_velocity_random = 1.0
+scale_amount = 0.9
+scale_amount_random = 0.5
+color_ramp = SubResource( 62 )
+
+[node name="playerBoxDetectorX" type="Area2D" parent="Sprite"]
+unique_name_in_owner = true
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite/playerBoxDetectorX"]
+position = Vector2( 13, 4 )
+shape = SubResource( 63 )
+
+[node name="playerBoxDetectorY" type="Area2D" parent="Sprite"]
+unique_name_in_owner = true
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite/playerBoxDetectorY"]
+self_modulate = Color( 0, 1, 0.180392, 1 )
+position = Vector2( 3, -3.5 )
+shape = SubResource( 65 )
+
+[node name="playerBoxDetectorY2" type="Area2D" parent="Sprite"]
+unique_name_in_owner = true
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite/playerBoxDetectorY2"]
+self_modulate = Color( 0, 1, 0.180392, 1 )
+position = Vector2( 3, 10.5 )
+shape = SubResource( 64 )
+
+[node name="audio" type="AudioStreamPlayer2D" parent="Sprite"]
+stream = ExtResource( 5 )
+bus = "sfx"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "idle"
+anims/idle = SubResource( 2 )
+anims/walk = SubResource( 4 )
+
+[node name="cam" parent="." instance=ExtResource( 6 )]
